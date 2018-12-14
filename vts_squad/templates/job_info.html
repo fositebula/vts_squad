@@ -1,0 +1,51 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'vts_squad/css/job_info.css' %}">
+{% endblock %}
+{% block content %}
+    <table class="table">
+        <tr>
+            <span><h5 class="font_bold">基本信息</h5></span>
+            <td><h4>提交者</h4></td><td><p>pl.dong</p></td>
+        </tr>
+        <tr>
+            <td><h4>vts 版本</h4></td><td><p>v1.0.0.1</p></td>
+            <td><h4>提交时间</h4></td><td><p>2018-12-12 12:34:56</p></td>
+        </tr>
+    </table>
+    <hr>
+    <br>
+    <table class="table">
+    <tr>
+    <span><h5 class="font_bold">lava 任务</h5></span>
+        <td><h4>lava 任务 id</h4></td><td><p>45345</p></td>
+    </tr>
+    <tr>
+        <td><h4>lava 任务 status</h4></td><td><p>Running</p></td>
+    </tr>
+    <tr>
+         <td><h4>lava 任务 device type</h4></td><td><p>sharkl3_trunk_9</p></td>
+    </tr>
+    <tr>
+         <td><h4>lava 任务 definition</h4></td><td><p>1111</p></td>
+    </tr>
+    <tr>
+            <td><h4>lava 任务 log</h4></td><td><p>2222</p></td>
+    </tr>
+    </table>
+
+    <hr>
+    <br>
+
+    <div class="test_case_result" >
+        <div class="tr">
+            <h4 class="f_l">vts 模块名字</h4> <p class="f_r test_case_suc">pass</p>
+        </div>
+        <div class="tr">
+            <h4 class="f_l">vts 模块名字</h4> <p class="f_r test_case_fail">fail</p>
+        </div>
+    </div>
+
+{% endblock %}

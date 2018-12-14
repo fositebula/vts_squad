@@ -1,0 +1,29 @@
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:Microsoft YaHei;
+    color: #5e5e5e;
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.f_r {
+    float: right;
+}
+.f_l {
+    float: left;
+}
+
+.font_bold {
+    font-weight: bold;
+}

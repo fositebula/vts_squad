@@ -1,0 +1,7 @@
+- deploy:
+    images:
+    {% for foo in imgs %}
+    {{ foo.name }}:
+        url: {{ img_url }}{{ foo.img }}
+    {% endfor %}
+    

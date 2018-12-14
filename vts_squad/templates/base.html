@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <title>VTS</title>
+    <link rel="stylesheet" href="{% static 'vts_squad/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'vts_squad/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'vts_squad/css/bootstrap3.3.7.min.css' %}">
+    {% block styles %}
+    
+    {% endblock %}
+</head>
+<body>
+    <div class="head">
+        <div class="container">
+            <div class="nav">
+                <ul>
+                    <li><a href="{% url 'index' %}">首页</a></li>
+                    <li><a href="javascript:;">我的提交</a></li>
+                    <li><a href="{% url 'submit' %}">提交job</a></li>
+                    <li><a href="javascript:;">我的评论</a></li>
+                </ul>
+            </div>
+
+            <div class="login">
+                <ul>
+                    <li><a href="javascript:;">登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color: #cccccc;">
+        <ul class="breadcrumb">
+            <li><a href="javascript:;">首页</a></li>
+            <li class="active"><a href="javascript:;">提交job</a></li>
+        </ul>
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="footer"></div>
+
+    {% block scripts %}
+
+    {% endblock %}
+    <script src="{% static 'vts_squad/js/jquery1.10.2.js' %}"></script>
+    <script src="{% static 'vts_squad/js/bootstrap3.3.7.min.js' %}"></script>
+    <script src="{% static 'vts_squad/js/base.js' %}"></script>
+</body>
+</html>
