@@ -27,3 +27,12 @@ ul {
 .font_bold {
     font-weight: bold;
 }
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.top-cap {
+    margin-top: 50px;
+}

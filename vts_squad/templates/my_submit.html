@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load vts_squad_cut %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'vts_squad/css/job_list.css' %}">
+{% endblock %}
+{% block breadcrumb %}
+        <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">首页</a></li>
+            <li class="active"><a href="{% url 'index' %}">job list</a></li>
+            <li class="active"><a href="{% url 'my_submit' %}">job info</a></li>
+        </ul>
+{% endblock %}
+{% block content %}
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>
+                submit id
+            </th>
+            <th>
+                verify id
+            </th>
+            <th>
+                lava job id
+            </th>
+            <th>
+                user
+            </th>
+            <th>
+                submit time
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in jobs %}
+            <tr>
+                <td>{{ job.id }}</td>
+                <td><a href="{% url 'job_info_detail' job.id %}" >{{ job.jenkins_build_num |cut:"['"|cut:"']" }}</a></td>
+                <td>{{ job.get_lava_job_id }}</td>
+
+                <td>{{ job.user }}</td>
+                <td>{{ job.submit_time | date:"Y-m-d H:i:s" }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    <div>
+
+<ul class="pager">
+    <li class="f_l"><a href="/?page={{ pre_page }}&length={{ page_length }}">Previous</a></li>
+    <li class="f_l"><p>Page {{ page | add:"1"}}/{{ all_pages }}(showing {{ page_length }} of {{ jobs_count }})</p></li>
+    <li class="f_l"><a href="/?page={{ next_page }}&length={{ page_length }}">Next</a></li>
+</ul>
+
+    </div>
+{% endblock %}

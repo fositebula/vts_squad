@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'vts_squad/css/login.css' %}">
+{% endblock %}
+{% block login %}
+<div class="container login_form">
+
+    <div class="alert alert-warning my-alert row">
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+</div>
+<form class="form-horizontal" role="form" action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+  <div class="form-group username">
+    <label for="username" class="col-sm-2 control-label">账号</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="username" name="username" value="{{ username }}" placeholder="账号">
+    </div>
+  </div>
+  <div class="form-group password">
+    <label for="password" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+    </div>
+  </div>
+{#  <div class="form-group read-me">#}
+{#    <div class="col-sm-offset-2 col-sm-10">#}
+{#      <div class="checkbox">#}
+{#        <label>#}
+{#          <input type="checkbox">请记住我#}
+{#        </label>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+  <div class="form-group submit-button">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">登录</button>
+    </div>
+  </div>
+</form>
+</div>
+
+
+
+{% endblock %}

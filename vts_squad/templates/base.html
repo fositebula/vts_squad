@@ -1,17 +1,24 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
     <title>VTS</title>
     <link rel="stylesheet" href="{% static 'vts_squad/css/common.css' %}">
     <link rel="stylesheet" href="{% static 'vts_squad/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'vts_squad/css/bootstrap3.3.7.min.css' %}">
     {% block styles %}
-    
     {% endblock %}
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="{% static 'vts_squad/js/html5shiv.min.js' %}"></script>
+      <script src="{% static 'vts_squad/js/respond.min.js' %}"></script>
+    <![endif]-->
 </head>
 <body>
     <div class="head">
@@ -19,34 +26,51 @@
             <div class="nav">
                 <ul>
                     <li><a href="{% url 'index' %}">首页</a></li>
-                    <li><a href="javascript:;">我的提交</a></li>
+                    <li><a href="{% url 'my_submit' %}">我的提交</a></li>
                     <li><a href="{% url 'submit' %}">提交job</a></li>
-                    <li><a href="javascript:;">我的评论</a></li>
+                    <li><a href="{% url 'my_comment' %}">我的评论</a></li>
                 </ul>
             </div>
 
             <div class="login">
-                <ul>
-                    <li><a href="javascript:;">登录</a></li>
-                </ul>
+                    {% if user.username %}
+                    <div id="after_login" class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id="user"
+                                data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span>
+                            {{ user.username }}
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/admin">Admin</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'logout' %}">退出</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div id="before_login"><a href="{% url 'login' %}">登录</a></div>
+                    {% endif %}
+
             </div>
         </div>
     </div>
-    <div class="container" style="background-color: #cccccc;">
-        <ul class="breadcrumb">
-            <li><a href="javascript:;">首页</a></li>
-            <li class="active"><a href="javascript:;">提交job</a></li>
-        </ul>
+    {% block login %}
+    {% endblock %}
+    <div class="container" >
+{#        <ul class="breadcrumb">#}
+{#            <li><a href="javascript:;">首页</a></li>#}
+{#            <li class="active"><a href="javascript:;">提交job</a></li>#}
+{#        </ul>#}
+        {% block breadcrumb %}{% endblock %}
         {% block content %}
         {% endblock %}
     </div>
+
     <div class="footer"></div>
-
-    {% block scripts %}
-
-    {% endblock %}
     <script src="{% static 'vts_squad/js/jquery1.10.2.js' %}"></script>
     <script src="{% static 'vts_squad/js/bootstrap3.3.7.min.js' %}"></script>
     <script src="{% static 'vts_squad/js/base.js' %}"></script>
+    <script src="{% static 'vts_squad/js/jquery.cookie.js' %}"></script>
+
+    {% block scripts %}
+    {% endblock %}
 </body>
 </html>

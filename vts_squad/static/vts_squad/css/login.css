@@ -1,0 +1,32 @@
+.login_form {
+    width: 400px;
+    height: 250px;
+    /*background-color: pink;*/
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    margin-left: -200px;
+    padding-top: 70px;
+    border: 1px solid #cccccc;
+}
+.login_form .username {
+    width: 100%;
+    /*background-color: blue;*/
+}
+
+.login_form .password {
+    width: 100%;
+}
+
+.login_form .read-me {
+
+}
+
+.login_form .submit-button {
+
+}
+
+.login_form .my-alert{
+    /*background-color: pink;*/
+    margin-top: -70px;
+}

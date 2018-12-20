@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='lavadevicetype',
-            name='template',
+            name='templates',
             field=models.TextField(default='', max_length=10240),
         ),
     ]

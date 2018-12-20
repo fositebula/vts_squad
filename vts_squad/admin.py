@@ -10,7 +10,7 @@ from django.contrib import admin
 
 from django.conf import settings
 
-from models import MyUser, Job, VtsModule, Comment,  LavaDeviceType, VtsVersion, DelployImgs, SquadAPI
+from models import MyUser, Job, VtsModule, Comment,  LavaDeviceType, VtsVersion, DelployImgs, SquadAPI, GongGao
 
 # Register your models here.
 
@@ -119,6 +119,9 @@ class SquadAPIAdmin(admin.ModelAdmin):
 class JobAdmin(admin.ModelAdmin):
     list_display = ('jenkins_job', 'jenkins_build_num', 'submit_time')
 
+class GongGaoAdmin(admin.ModelAdmin):
+    list_display = ('name', 'update_time', )
+
 admin.site.register(VtsModule, VtsModuleAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(LavaDeviceType, LavaDeviceTypeAdmin)
@@ -126,3 +129,4 @@ admin.site.register(VtsVersion, VtsVersionAdmin)
 admin.site.register(DelployImgs, DelployImgsAdmin)
 admin.site.register(SquadAPI, SquadAPIAdmin)
 admin.site.register(Job, JobAdmin)
+admin.site.register(GongGao, GongGaoAdmin)

@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='lavadevicetype',
-            name='template',
+            name='templates',
             field=models.TextField(default='', max_length=5120),
         ),
         migrations.DeleteModel(

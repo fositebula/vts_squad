@@ -1,51 +1,182 @@
-
 {% extends 'base.html' %}
 {% load static %}
+{% load vts_squad_cut %}
+{% block breadcrumb %}
+        <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">首页</a></li>
+            <li class="active"><a href="{% url 'index' %}">job list</a></li>
+            <li class="active"><a href="{{ job_bread_crumb }}">job info</a></li>
+        </ul>
+{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'vts_squad/css/job_info.css' %}">
+    <link rel="stylesheet" href="{% static 'vts_squad/css/lava_job_info.css' %}">
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'vts_squad/js/lava_job_info.js' %}"></script>
 {% endblock %}
 {% block content %}
-    <table class="table">
-        <tr>
-            <span><h5 class="font_bold">基本信息</h5></span>
-            <td><h4>提交者</h4></td><td><p>pl.dong</p></td>
-        </tr>
-        <tr>
-            <td><h4>vts 版本</h4></td><td><p>v1.0.0.1</p></td>
-            <td><h4>提交时间</h4></td><td><p>2018-12-12 12:34:56</p></td>
-        </tr>
-    </table>
-    <hr>
-    <br>
-    <table class="table">
-    <tr>
-    <span><h5 class="font_bold">lava 任务</h5></span>
-        <td><h4>lava 任务 id</h4></td><td><p>45345</p></td>
-    </tr>
-    <tr>
-        <td><h4>lava 任务 status</h4></td><td><p>Running</p></td>
-    </tr>
-    <tr>
-         <td><h4>lava 任务 device type</h4></td><td><p>sharkl3_trunk_9</p></td>
-    </tr>
-    <tr>
-         <td><h4>lava 任务 definition</h4></td><td><p>1111</p></td>
-    </tr>
-    <tr>
-            <td><h4>lava 任务 log</h4></td><td><p>2222</p></td>
-    </tr>
-    </table>
+    <h4 class="font_bold">基本信息</h4>
+    <div class="row">
+        <div class="col-xs-2">
+            <h4>提交者</h4>
+        </div>
+        <div class="col-xs-10">
+            <h5>{{ job.user }}</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-2">
+            <h4>vts 版本</h4>
+        </div>
+        <div class="col-xs-4">
+            <h5>{{ job.vts_version }}</h5>
+        </div>
+        <div class="col-xs-2">
+            <h4>提交时间</h4>
+        </div>
+        <div class="col-xs-4">
+            <h5>{{ lava_job_submittime }}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <h4>分支和工程</h4>
+        </div>
+        <div class="col-xs-4">
+            <h5>{{ job.verify_url | branch_project }}</h5>
+        </div>
+        <div class="col-xs-2">
+            <h4>vts模块</h4>
+        </div>
+        <div class="col-xs-4">
+            <h5>{{ job.vts_module }}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <form action="{% url 'resubmit' %}" method="GET">
+                <input type="hidden" name="jid" value="{{ job.id }}">
+                <input class="btn btn-info" type="submit" value="resubmit">
+            </form>
+        </div>
+    </div>
 
     <hr>
     <br>
 
-    <div class="test_case_result" >
-        <div class="tr">
-            <h4 class="f_l">vts 模块名字</h4> <p class="f_r test_case_suc">pass</p>
+    <h4 class="font_bold">lava 任务</h4>
+    {% if schedule %}
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        正在下载img文件
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100" style="width: {{ schedule }};">
+                            <span class="sr-only">{{ schedule }} 完成</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div class="tr">
-            <h4 class="f_l">vts 模块名字</h4> <p class="f_r test_case_fail">fail</p>
+    {% else %}
+        <div class="row">
+        <div class="col-xs-4">
+            <h4>lava 任务 id</h4>
         </div>
+        <div class="col-xs-8">
+            <a href="{{ lava_job_url }}"><h5>{{ lava_job_id }}</h5></a>
+        </div>
+    </div>
+
+     <div class="row">
+        <div class="col-xs-4">
+            <h4>lava 任务 status</h4>
+        </div>
+        <div class="col-xs-8
+            {% if lava_job_status == "Complete" %}
+            test_case_suc
+            {% elif  lava_job_status == "Canceled" or lava_job_status == "Running"%}
+            test_case_skip
+            {% else %}
+            test_case_fail
+            {% endif %}
+        ">
+            <h5><strong>{{ lava_job_status }}</strong></h5>
+        </div>
+    </div>
+
+         <div class="row">
+        <div class="col-xs-4">
+            <h4>lava 任务 device type</h4>
+        </div>
+        <div class="col-xs-8">
+            <h5>{{ job.device_type }}</h5>
+        </div>
+    </div>
+
+     <div class="row">
+        <div id="lava_job_info_yaml" class="col-xs-2">
+            <h4 class="btn btn-primary">lava 任务 definition</h4>
+        </div>
+        <div class="col-xs-10">
+            <pre style="display: none">{{ job.lava_job_yaml  }}</pre>
+        </div>
+    </div>
+    <div class="row">
+        <div id="lava_job_info_log" class="col-xs-2">
+            <h4 class="btn btn-primary">lava 任务 log</h4>
+        </div>
+        <div class="col-xs-10">
+            <pre  style="display: none">{{ lava_job_log  }}</pre>
+        </div>
+    </div>
+    {% endif %}
+
+    <hr>
+    <br>
+
+    <table class="table table-striped table-hover" >
+    <caption><h4 class="font_bold">vts 测试结果</h4></caption>
+        <thead>
+        <tr>
+            <th>case name</th>
+            <th>result</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for foo in lava_job_case_result %}
+          <tr>
+            <td class="col-xs-10">{{ foo.metadata.case }}</td>
+            <td class="col-xs-2 f_r {% if foo.metadata.result == 'pass'  %}
+            {{ 'test_case_suc' }}
+            {% elif foo.metadata.result == 'skip' %}
+            {{ 'test_case_skip' }}
+            {% else %}
+            {{ 'test_case_fail' }}
+            {% endif %}">{{ foo.metadata.result }}</td>
+        </tr>
+
+    {% endfor %}
+        </tbody>
+
+{#        <div class="tr">#}
+{#            <h4 class="f_l">vts 模块名字</h4> <p class="f_r test_case_suc">pass</p>#}
+{#        </div>#}
+{#        <div class="tr">#}
+{#            <h4 class="f_l">vts 模块名字</h4> <p class="f_r test_case_fail">fail</p>#}
+{#        </div>#}
+    </table>
+
+    <div class="f-button">
+        <span class="glyphicon glyphicon-arrow-up"></span>
     </div>
 
 {% endblock %}

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import requests
+
 from django.db import models
 from django import forms
 from django.contrib.auth.models import (
@@ -65,6 +67,7 @@ class MyUser(AbstractBaseUser):
 class Job(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
 
+    verify_url = models.CharField(max_length=256, default='')
     jenkins_job = models.CharField(max_length=32, default='')
     jenkins_build_num = models.CharField(max_length=12, default='')
     jenkins_node = models.CharField(max_length=12, default='')
@@ -85,13 +88,19 @@ class Job(models.Model):
     lava_test_case_result = models.CharField(max_length=1024, default='')
 
     vts_version = models.ForeignKey('VtsVersion', default=0)
-
+    vts_module = models.CharField(max_length=64, default='')
     device_type = models.ForeignKey('LavaDeviceType', default=0)
 
     submit_time = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.jenkins_build_num
+
+    def get_lava_job_id(self):
+        if self.lava_job.startswith('http://'):
+            return requests.get(self.lava_job).json().get('job_id')
+        else:
+            return ''
 
 class Comment(models.Model):
     text = models.TextField(max_length=1024, default='')
@@ -161,6 +170,15 @@ class SquadAPI(models.Model):
     name = models.CharField(max_length=32, default='')
 
     # device_type = models.ForeignKey('LavaDeviceType', default=0)
+
+    def __unicode__(self):
+        return self.name
+
+class GongGao(models.Model):
+    name = models.CharField(max_length=32, default='')
+    content = models.CharField(max_length=512, default='')
+    fabu_or_not = models.BooleanField(default=False)
+    update_time = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name

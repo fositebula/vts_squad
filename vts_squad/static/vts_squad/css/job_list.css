@@ -1,0 +1,49 @@
+.pager li:nth-child(2){
+    width: 33.33%;
+    margin-left: auto;
+
+}
+
+.pager li:first-child{
+    width: 33.33%;
+    /*background-color: pink;*/
+    margin-left: auto;
+
+}
+
+.pager li:last-child{
+    width: 33.33%;
+    /*background-color: pink;*/
+    margin-left: auto;
+
+}
+
+.gonggao1 {
+    /*border: 1px solid #cccccc;*/
+    height: 30px;
+    background: url('../images/timg.jpeg') no-repeat center;
+    background-size: 30px;
+}
+
+.gonggao2 {
+    /*border: 1px solid #cccccc;*/
+    height: 30px;
+    overflow: hidden;
+}
+
+.gonggao2 p {
+    height: 30px;
+    line-height: 30px;
+    transform: translateX(1200px);
+    animation: gonggao 20s linear 0.5s infinite;
+}
+
+@keyframes gonggao {
+    from {
+        transform: translateX(1200px);
+    }
+    to {
+        transform: translateX(-1200px);
+    }
+}
+

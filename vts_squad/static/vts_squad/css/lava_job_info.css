@@ -1,0 +1,68 @@
+.test_case_result {
+    width: 100%;
+    /*border: 1px solid #666;*/
+}
+.test_case_result .tr {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #666;
+    margin-bottom: 10px;
+
+}
+.test_case_result .tr:hover {
+    background-color: #eeeeee;
+}
+.test_case_result h4 {
+    width: 300px;
+    height: 30px;
+    display: block;
+    padding-left: 30px;
+}
+.test_case_result p {
+    width: 300px;
+    height: 30px;
+    display: block;
+    /*background-color: #ffffff;*/
+}
+
+.test_case_suc {
+    background-color: green;
+}
+
+.test_case_fail {
+    background-color: red;
+}
+.test_case_skip {
+    background-color: yellow;
+}
+pre {
+    width: 900px;
+}
+
+.display_none{
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.display {
+    height: 100%;
+}
+
+#lava_job_info_log, #lava_job_info_yaml {
+    cursor: pointer;
+}
+
+#lava_job_info_log h4, #lava_job_info_yaml h4{
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+
+.f-button {
+    font-size: 45px;
+    position: fixed;
+    right: 200px;
+    bottom: 100px;
+    display: none;
+    cursor: pointer;
+}

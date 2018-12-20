@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% load vts_squad_cut %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'vts_squad/css/job_list.css' %}">
+{% endblock %}
 {% block content %}
-    <table class="table">
+    <div class="breadcrumb row">
+    {% if gonggao != '' %}
+        <div class="col-xs-2 gonggao1" style="">
+        </div>
+        <div class="col-xs-10 gonggao2"><p>{{ gonggao }}</p></div>
+    {% endif %}
+    </div>
+    <table class="table table-strip table-hover">
         <thead>
         <tr>
             <th>
@@ -14,9 +25,6 @@
                 lava job id
             </th>
             <th>
-                lava job status
-            </th>
-            <th>
                 user
             </th>
             <th>
@@ -25,23 +33,26 @@
         </tr>
         </thead>
         <tbody>
+        {% for job in jobs %}
             <tr>
-                <td>1</td>
-                <td>555636</td>
-                <td>12345</td>
-                <td>Running</td>
-                <td>pl.dong</td>
-                <td>2018-12-12 10:41:33</td>
+                <td>{{ job.id }}</td>
+                <td><a href="{% url 'job_info_detail' job.id %}" >{{ job.jenkins_build_num |cut:"['"|cut:"']" }}</a></td>
+                <td>{{ job.get_lava_job_id }}</td>
+
+                <td>{{ job.user }}</td>
+                <td>{{ job.submit_time | date:"Y-m-d H:i:s" }}</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>555636</td>
-                <td>12345</td>
-                <td>Running</td>
-                <td>pl.dong</td>
-                <td>2018-12-12 10:41:33</td>
-            </tr>
+        {% endfor %}
         </tbody>
 
     </table>
+    <div>
+
+<ul class="pager">
+    <li class="f_l"><a href="/?page={{ pre_page }}&length={{ page_length }}">Previous</a></li>
+    <li class="f_l"><p>Page {{ page | add:"1"}}/{{ all_pages }}(showing {{ page_length }} of {{ jobs_count }})</p></li>
+    <li class="f_l"><a href="/?page={{ next_page }}&length={{ page_length }}">Next</a></li>
+</ul>
+
+    </div>
 {% endblock %}

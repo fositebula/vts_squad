@@ -23,7 +23,7 @@ def verify_dowloader(target_url):
     target_log = os.path.join(where_to_download, my_file_name+'.log')
 
     #如果存在就gz文件就不下载
-    if not os.path.exists(target):
+    if not os.path.exists(where_to_download):
         sh.wget([target_url, "--tries=0", "--output-document=" + target,
              "--continue", "--timeout=1800", "--output-file=" + target_log])
 

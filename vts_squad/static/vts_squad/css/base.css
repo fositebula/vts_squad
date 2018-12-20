@@ -1,27 +1,21 @@
 .head {
     height: 50px;
     width: 100%;
-    background-color: #5e5e5e;
-}
-
-.container {
-    /*height: 1000px;*/
-    /*background-color: pink;*/
+    background-color: #e1dbdb;
+    position: fixed;
+    z-index: 1000;
 }
 
 .footer {
     width: 100%;
     height: 100px;
-    background-color: #5e5e5e;
+    background-color: #e1dbdb;
     position: absolute;
     left: 0;
-    /*!*bottom: 0;*!*/
 }
 
 .nav {
     float: left;
-    /*background-color: pink;*/
-    /*height: 50px;*/
 }
 .nav ul {
 }
@@ -36,20 +30,31 @@
     line-height:50px;
     font-size: 18px;
     margin-right: 25px;
-    color: #d4d4d4;
+    color: #777;
 }
 .login {
     float: right;
     height: 50px;
+    margin-top: 8px;
     /*background-color: blue;*/
 }
 
-.login li a {
-    height: 50px;
-    line-height: 50px;
-    color: #d4d4d4;
+.login button {
+    background-color: #e1dede;;
+    /*color: #d4d4d4;*/
+}
+
+.login a{
+    text-decoration: none;
+    color: #333;
+}
+#before_login {
+   margin-top: 3px;
+}
+.display_none {
+    display: none;
 }
 
 .breadcrumb {
-    margin-top: 30px;
+    margin-top: 100px;
 }
